@@ -18,3 +18,9 @@ jobs:
         run: |
           echo "Job context: $JOB_CONTEXT"
           echo "Done!"
+
+      - name: Install dependencies
+        run: composer install --ignore-platform-reqs
+
+      - name: Run tests
+        run: composer phpunit
