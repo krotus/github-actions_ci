@@ -18,8 +18,7 @@ final class AnswererTest extends TestCase
         $this->greeting = null;
     }
 
-    /** @test */
-    public function shouldSayHelloWhenGreeting()
+    public function testShouldSayHelloWhenGreeting()
     {
         $this->givenAnswerer();
 
