@@ -5,9 +5,18 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['8.2', '8.3']
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
 
       - name: Hello world!
         run: echo "Hello!! from ${{ github.workflow }} triggered by the ${{ github.event_name }} done by ${{ github.actor }}"
@@ -20,7 +29,7 @@ jobs:
           echo "Done!"
 
       - name: Install dependencies
-        run: composer install --ignore-platform-reqs
+        run: composer install --prefer-dist --no-progress --no-suggest
 
       - name: Run tests
         run: composer phpunit
