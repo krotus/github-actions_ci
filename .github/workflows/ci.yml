@@ -1,12 +1,10 @@
-name: First workflow
+name: CI
 
 on: [push, pull_request]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
