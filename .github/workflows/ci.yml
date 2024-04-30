@@ -23,7 +23,7 @@ jobs:
         with:
           path: ~/.composer
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-key: |
+          restore-keys: |
             ${{ runner.os}}-composer-
       
 
