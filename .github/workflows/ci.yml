@@ -19,11 +19,19 @@ jobs:
           echo "Job context: $JOB_CONTEXT"
           echo "Done!"
 
-      - name: Start all the environment
-        run: make start
+      - uses: actions/cache@v3
+        with:
+          path: ~/.composer
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-key: |
+            ${{ runner.os}}-composer-
+      
 
       - name: Install dependencies
         run: make composer-install
+
+      - name: Start all the environment
+        run: make start
 
       - name: Run tests
         run: make test
