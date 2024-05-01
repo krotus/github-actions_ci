@@ -29,6 +29,10 @@ run-tests:
 	mkdir -p build/test_results/phpunit
 	./vendor/bin/phpunit --exclude-group='disabled' --log-junit build/test_results/phpunit/junit.xml tests
 
+run-parallel-tests:
+	mkdir -p build/test_results/phpunit
+	parallel --gnu -a tests.parallel || false
+
 # 🐳 Docker Compose
 start: CMD=up -d
 stop: CMD=stop
