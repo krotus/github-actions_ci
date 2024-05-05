@@ -21,3 +21,21 @@ if ! [ $hadNoNonStagedChanges -eq 0 ]
 then
 	git stash --keep-index -u > /dev/null
 fi
+
+echo "* Checking pre push conditions ('test' all passed)…"
+make run-tests > /dev/null
+canPush=$?
+
+if [ $canPush -ne 0 ]
+then
+	echo "  [KO] Error :("
+fi
+
+if [ $canPush -eq 0 ]
+then
+    echo "[OK] Your code will be pushed"
+    exit 0
+else
+    echo "[KO] Cancelling push due to some test has error (run 'make run-tests' for more information)"
+    exit 1
+fi
